@@ -2,6 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Cartao from '../Components/Cartao';
 
+const EMAIL_CONFIG = {
+  destinatario: 'contatocomtricode@gmail.com',
+  assunto: 'Solicitação de Projeto - Via Site',
+  mensagem: `Olá TriCode,
+
+Estou interessado(a) em desenvolver um projeto!
+
+Detalhes do projeto:
+
+[Descreva aqui as necessidades do seu projeto]
+
+Atenciosamente,`
+};
+
+const criarMailtoLink = () => {
+  const subject = encodeURIComponent(EMAIL_CONFIG.assunto);
+  const body = encodeURIComponent(EMAIL_CONFIG.mensagem);
+  return `mailto:${EMAIL_CONFIG.destinatario}?subject=${subject}&body=${body}`;
+};
+
 const Contato: React.FC = () => {
   const location = useLocation();
   const [shouldAnimate, setShouldAnimate] = useState(false);
@@ -101,9 +121,15 @@ const Contato: React.FC = () => {
             <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-3 md:mb-4">
               Prontos para transformar suas ideias em realidade
             </p>
-            <p className="text-base md:text-lg text-gray-400 px-4">
+            <p className="text-base md:text-lg text-gray-400 px-4 mb-6 md:mb-8">
               Entre em contato e descubra como podemos ajudar seu negócio a crescer
             </p>
+            <a
+              href={criarMailtoLink()}
+              className="inline-block px-6 py-3 md:px-8 md:py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl text-sm md:text-base"
+            >
+              Enviar Email Agora
+            </a>
           </div>
         </div>
       </section>
@@ -116,7 +142,7 @@ const Contato: React.FC = () => {
                 Entre em Contato
               </h2>
               <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
-                Escolha a forma que preferir. Nossa equipe está pronta para atender você com excelência e profissionalismo.
+                Nossa equipe está pronta para atender você com excelência e profissionalismo.
               </p>
             </div>
 
@@ -131,10 +157,10 @@ const Contato: React.FC = () => {
                   Email
                 </h3>
                 <a
-                  href="mailto:contatocomtricode@gmail.com"
+                  href={criarMailtoLink()}
                   className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors duration-200 text-sm font-medium block mb-3 break-all"
                 >
-                  contatocomtricode@gmail.com
+                  {EMAIL_CONFIG.destinatario}
                 </a>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
                   Envie suas dúvidas, solicite um orçamento ou conheça nossos serviços
@@ -200,7 +226,7 @@ const Contato: React.FC = () => {
                   </>
                 )}
                 <a
-                  href="mailto:contatocomtricode@gmail.com"
+                  href={criarMailtoLink()}
                   className={`inline-block px-6 py-3 md:px-8 md:py-4 bg-white dark:bg-gray-100 text-purple-600 dark:text-purple-700 font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-200 transition-all duration-200 shadow-lg hover:shadow-xl text-sm md:text-base relative z-10 ${
                     shouldAnimate ? 'animate-[attention-pulse_1.5s_ease-in-out]' : ''
                   }`}
